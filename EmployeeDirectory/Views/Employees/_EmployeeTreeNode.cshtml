@@ -1,0 +1,14 @@
+﻿@model EmployeeDirectory.Models.EmployeeTreeViewModel
+
+<li>
+    @Model.Employee.FirstName @Model.Employee.LastName
+    @if (Model.Subordinates.Any())
+    {
+        <ul>
+            @foreach (var child in Model.Subordinates)
+            {
+                @Html.Partial("_EmployeeTreeNode", child)
+            }
+        </ul>
+    }
+</li>

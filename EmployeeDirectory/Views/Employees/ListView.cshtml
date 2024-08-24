@@ -1,0 +1,62 @@
+﻿@model IEnumerable<EmployeeDirectory.Models.Employee>
+
+@{
+    ViewData["Title"] = "List View";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Tab for navigation -->
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="@Url.Action("ListView")">List View</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("TreeView")">Tree View</a>
+    </li>
+</ul>
+
+<!-- Employee List view table -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Employee Id</th>
+            <th>Employee Name</th>
+            <th>Manager Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.EmployeeID</td>
+                <td>@($"{employee.FirstName} {employee.LastName}")</td>
+                <td>@($"{employee.Manager?.FirstName} {employee.Manager?.LastName}")</td>
+                <td>
+                    <form method="post" asp-action="Delete" asp-route-id="@employee.EmployeeID" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Create Employee Form -->
+<h2>Create New Employee</h2>
+<form method="post" asp-action="Create">
+    <div class="form-group">
+        <label for="FirstName">First Name</label>
+        <input type="text" name="FirstName" class="form-control" id="FirstName" required />
+    </div>
+    <div class="form-group">
+        <label for="LastName">Last Name</label>
+        <input type="text" name="LastName" class="form-control" id="LastName" required />
+    </div>
+    <div class="form-group">
+        <label for="ManagerID">Manager ID (Optional)</label>
+        <input type="number" name="ManagerID" class="form-control" id="ManagerID" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

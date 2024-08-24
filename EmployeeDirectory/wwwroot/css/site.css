@@ -1,0 +1,78 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.tree {
+    list-style-type: none;
+    padding-left: 1em;
+    position: relative;
+}
+
+.tree li {
+    margin: 0;
+    padding: 0 1em;
+    position: relative;
+}
+
+    .tree li::before {
+        content: '';
+        position: absolute;
+        left: -1em;
+        top: 0;
+        width: 1em;
+        height: 100%;
+        border-left: 1px solid #000;
+        border-bottom: 1px solid #000;
+    }
+
+    .tree li::after {
+        content: '';
+        position: absolute;
+        left: -1em;
+        top: 1em;
+        width: 1em;
+        height: 1em;
+        border-top: 1px solid #000;
+    }
+
+.tree ul {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    left: 1em;
+}
+
+    .tree ul::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -1em;
+        width: 1em;
+        height: 100%;
+        border-left: 1px solid #000;
+        border-bottom: 1px solid #000;
+    }
+
+    .tree ul > li::before {
+        border-left: none;
+        border-bottom: none;
+    }

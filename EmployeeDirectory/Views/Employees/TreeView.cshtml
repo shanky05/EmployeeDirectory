@@ -1,0 +1,48 @@
+﻿@model IEnumerable<EmployeeDirectory.Models.Employee>
+
+@{
+    ViewData["Title"] = "Tree View";
+    var employeeList = Model.ToList();
+    var hierarchy = BuildHierarchy(employeeList);
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Tab for navigation -->
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("ListView")">List View</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="@Url.Action("TreeView")">Tree View</a>
+    </li>
+</ul>
+
+
+@functions {
+    public static List<EmployeeTreeViewModel> BuildHierarchy(IEnumerable<Employee> employees, int? managerId = null)
+    {
+        var hierarchy = new List<EmployeeTreeViewModel>();
+        foreach (var employee in employees.Where(e => e.ManagerID == managerId))
+        {
+            var viewModel = new EmployeeTreeViewModel
+            {
+                Employee = employee,
+                Subordinates = BuildHierarchy(employees, employee.EmployeeID)
+            };
+            hierarchy.Add(viewModel);
+        }
+        return hierarchy;
+    }
+
+}
+
+<ul class="tree">
+    
+    @foreach (var node in hierarchy)
+    {
+        @Html.Partial("_EmployeeTreeNode", node)
+    }
+</ul>
+
+    
